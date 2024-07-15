@@ -41,8 +41,8 @@ fn main() -> io::Result<()> {
 
 fn load_words(filename: &str) -> io::Result<Vec<String>> {
     let file = File::open(filename)?;
-    let reader = BufReader::new(file); // the documentation of new says inner R, where R: Read. What does that mean?
-    Ok(reader.lines().filter_map(Result::ok).collect()) // why filter_map call here? 
+    let reader = BufReader::new(file); // file has to implement Read trait
+    Ok(reader.lines().filter_map(Result::ok).collect()) // Result::ok takes a result and returns an option, acts as closure here. filter_map also unwraps.
 }
 
 fn select_random_words(words: &[String], count: usize) -> Vec<String> {
